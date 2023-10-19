@@ -33,12 +33,29 @@ async function run() {
     const database = client.db("flavorDB");
 
     const productCollection = database.collection("productCollection");
+    const brandAds = database.collection("brandAds");
 
     app.get("/brands/:name", async (req, res) => {
       const brandName = req.params.name;
       const query = { brandName: brandName };
       const cursor = productCollection.find(query);
       const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    app.get("/brands/ads/:name", async (req, res) => {
+      const brandName = req.params.name;
+      const query = {brandName: brandName};
+      const cursor = brandAds.find(query);
+      const result = await cursor.toArray();
+
+      res.send(result);
+    });
+
+    app.post("/brands/ads", async (req, res) => {
+      const adInfo = req.body;
+      const result = await brandAds.insertOne(adInfo);
+
       res.send(result);
     });
 
