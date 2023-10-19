@@ -38,7 +38,7 @@ async function run() {
 
     app.get("/brands/:name", async (req, res) => {
       const brandName = req.params.name;
-      const query = { brandName: brandName };
+      const query = {brandName: brandName};
       const cursor = productCollection.find(query);
       const result = await cursor.toArray();
       res.send(result);
@@ -46,7 +46,7 @@ async function run() {
 
     app.get("/brands/ads/:name", async (req, res) => {
       const brandName = req.params.name;
-      const query = { brandName: brandName };
+      const query = {brandName: brandName};
       const cursor = brandAds.find(query);
       const result = await cursor.toArray();
 
@@ -55,7 +55,7 @@ async function run() {
 
     app.get("/products/:id", async (req, res) => {
       const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
+      const query = {_id: new ObjectId(id)};
       const result = await productCollection.findOne(query);
 
       res.send(result);
@@ -71,7 +71,7 @@ async function run() {
     app.put("/products/:id/update", async (req, res) => {
       const id = req.params.id;
       const updatedInfo = req.body;
-      const filter = { _id: new ObjectId(id) };
+      const filter = {_id: new ObjectId(id)};
       const options = { upsert: true };
       const updatedProduct = {
         $set: {
