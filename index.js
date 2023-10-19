@@ -34,6 +34,7 @@ async function run() {
 
     const productCollection = database.collection("productCollection");
     const brandAds = database.collection("brandAds");
+    const cartCollection = database.collection("cartCollection");
 
     app.get("/brands/:name", async (req, res) => {
       const brandName = req.params.name;
@@ -82,6 +83,13 @@ async function run() {
         updatedProduct,
         options
       );
+
+      res.send(result);
+    });
+
+    app.post("/cart/add", async (req, res) => {
+      const cartInfo = req.body;
+      const result = await cartCollection.insertOne(cartInfo);
 
       res.send(result);
     });
