@@ -28,7 +28,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
 
     const database = client.db("flavorDB");
 
@@ -61,8 +61,10 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/cart", async (req, res) => {
-      const cursor = cartCollection.find();
+    app.get("/cart/:userId", async (req, res) => {
+      const userId = req.params.userId
+      const query = {userId:userId}
+      const cursor = cartCollection.find(query);
       const result = await cursor.toArray();
 
       res.send(result);
